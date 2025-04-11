@@ -1,167 +1,49 @@
+
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Танцевальное шоу</title>
-    <style>
-        /* Ваши стили здесь... */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e8f5e9; /* Светло-зеленый фон */
-            margin: 0;
-            padding: 20px;
-            color: #4a148c; /* Темно-фиолетовый текст */
-        }
-
-        h1 {
-            text-align: left; /* Выровнять текст влево */
-            color: #388e3c; /* Ярко-зеленый цвет */
-        }
-
-        h2 {
-            color: #4a148c; /* Темно-фиолетовый цвет */
-        }
-
-        h3 {
-            text-align: right; /* Выровнять текст вправо */
-            color: #8c2c14; /* красный цвет */
-        }
-
-        input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            margin: 10px auto;
-            display: block;
-            border: 2px solid #388e3c; /* Ярко-зеленая рамка */
-            border-radius: 5px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #4a148c; /* Темно-фиолетовый цвет */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #3e1a6f; /* Темнее фиолетовый при наведении */
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            max-width: 600px;
-            margin: 20px auto;
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        li {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            color: #4a148c; /* Темно-фиолетовый цвет текста в списке */
-        }
-
-        li:last-child {
-            border-bottom: none;
-        }
-    </style>
+    <title>Окошко и кнопка</title>
 </head>
 <body>
-    <h3>beta</h3>
-    <h1>Расписание танцевальных шоу</h1>
-    <h2>11 апреля</h2>
-    <input type="text" id="dancerInput" placeholder="Введите имя танцора" />
-    <button onclick="findShows()">Найти шоу</button>
+<input type="text" id="userInput">
+<!--<button onclick="handleClick()">Отправить</button>-->
+<button ontouchstart="handleClick()">Отправить</button>
+<div id="result"></div>
 
-    <h2>Результаты:</h2>
-    <ul id="results"></ul>
 
-    <script>
-        // Задаем переменные для танцоров
-        const Milka = 'Milka';
-        const Daria = 'Daria';
-        const Alona = 'Alona';
-        const Tetiana = 'Tetiana';
-        const Sapronova = 'Sapronova';
-        const Bordiian = 'Bordiian';
-        const Kristina = 'Kristina';
-        const Mery = 'Mery';
-        const Sergey = 'Sergey';
-        const Daniil = 'Daniil';
-        const Max = 'Max';
-        const Rostik = 'Rostik';
-        const Klimenko = 'Klimenko';
-        const Mars = 'Mars';
-        const Rustam = 'Rustam';
-        const Oleg = 'Oleg';
-        const Mikhail = 'Mikhail';
-        const Anton = 'Anton';
-        const Evgeny = 'Evgeny';
-        const Dima = 'Dima';
-        const Lemon = 'Lemon';
-        const Yulian = 'Yulian';
-        const Ilya = 'Ilya';
-        const Anya = 'Anya';
-        const Dasha = 'Dasha';
-        const Diana = 'Diana';
-        const Sofiia = 'Sofiia';
-        const Yaroslav = 'Yaroslav';
-        const Lloyd = 'Lloyd';
-        const Krava = 'Krava';
-        const Datri = 'Datri';
-        const Miya = 'Miya';
-        const Masha = 'Masha';
-        const Katya = 'Katya';
+<script>
+    function countMatches(str, arr) {
+        let result = ""; // Создать пустую строку для записи результатов
 
-        const shows = {
-            //"11:00 Chimelong hotel 10:30 машинка от общаги ": { dancers: ["Dima", "Ilya", "Evgeny", "Diana", "Dasha", "Masha"] },
-            //"11:30 Safari hotel  ❗️женское шоу❗️ 11:10 машинка от общаги ❗️костюмы и обувь с собой в отель": { dancers: ["Sofiia", "Anya", "Miya", "Katya", "Kristina", "Mery"] },
-            "❗️13:00 You can do it (come at 12:45) ": { dancers: [Dima, Yulian, Lemon, Mikhail, Diana, Dasha, Krava, Masha] },
-            "❗️14:00 Dragon Parade (come at 13:30) ❗️Собрание в 13:45": { dancers: [Mars, Anton, Klimenko, Max, Sofiia, Mery, Kristina, Katya] },
-            "❗️14:00 Boys unite Parade (come at 13:30) ❗️Собрание в 13:45": { dancers: [Lloyd, Yulian, Daniil, Mikhail, Oleg, Evgeny, Yaroslav, Rostik] },
-            "❗️14:00 Girls unite Parade (come at 13:30) ❗️Собрание в 13:45": { dancers: [Dasha, Anya, Daria, Alona, Krava, Datri, Bordiian, Sapronova] },
-            "❗️14:00 Scorpion Parade (come at 13:30) ❗️Собрание в 13:45": { dancers: [Masha] },
-            "15:00 женское шоу ( 4D stage , come at 14:55)": { dancers: [Mery, Daria, Anya, Datri, Sapronova, Bordiian] },
-            "❗️16:00 You can do it (come at 15:45)": { dancers: [Dima, Max, Lemon, Mikhail, Diana, Dasha, Krava, Anya] },
-            "🕺16:10  мужское шоу ( карусель, come at 16:05)": { dancers: [Rostik, Rustam, Lloyd, Mars, Daniil, Evgeny] },
-            "👯‍♀️16:30 женское шоу (central stage, come at 16:25)": { dancers: [Mery, Sofiia, Katya, Bordiian, Daria, Kristina] },
-            "👯‍♀️17:40 женское шоу (central stage, come at 17:35) ": { dancers: [Sofiia, Mery, Kristina, Katya, Sapronova, Datri] },
-            "🕺18:05 мужское шоу (❗️ детская сцена ❗️, come at 18:00)": { dancers: [Anton , Rustam, Mars, Oleg, Max , Klimenko] },
-            "19:00 Dragon Evening parade (come at 18:30) ": { dancers: [Rostik, Lloyd, Klimenko, Lemon, Krava, Daria, Datri, Diana] },
-            "19:00 Rhinoceros Evening parade (come at 18:30)": { dancers: [Daniil, Oleg, Evgeny, Katya, Kristina, Sofiia] },
-            "19:00 Bull Evening parade": {dancers: [Rustam, Dima, Sapronova, Bordiian]},
-            "19:00 Scorpion Evening parade (come at 18:30) ": { dancers: [Masha] },
-        };
 
-        function findShows() {
-            const dancerName = document.getElementById("dancerInput").value;
-            const resultsList = document.getElementById("results");
-            resultsList.innerHTML = ""; // очищаем предыдущие результаты
-
-            const results = [];
-
-            for (let show in shows) {
-                if (shows[show].dancers.includes(dancerName)) {
-                    results.push(show);
-                }
+        for (let i = 0; i < arr.length; i++) {
+            let count = 0;
+            let index = str.indexOf(arr[i]);
+            while (index !== -1) {
+                count++;
+                index = str.indexOf(arr[i], index + 1);
             }
-
-            if (results.length === 0) {
-                resultsList.innerHTML = "<li>Шоу не найдены</li>";
-            } else {
-                results.forEach(result => {
-                    const li = document.createElement("li");
-                    li.textContent = result;
-                    resultsList.appendChild(li);
-                });
-            }
+            result += `"${arr[i]}" matches: ${count} <br>`; // Добавить результат в строку с переносом строки
         }
-    </script>
+
+
+        console.log(result); // Вывести результат в консоль
+        return result; // Вернуть результат
+
+
+    }
+
+
+    function handleClick() {
+        const userInput = document.getElementById('userInput').value;
+        const arr = ["Anya", "Diana", "Alona", "Katya", "Daria", "Dasha", "Masha", "Mery", "Kristina", "Krava", "Milka", "Miya", "Sofiia", "Sapronova", "Bordiian", "Datri", "Tetiana", "Dima", "Ilya", "Evgeny", "Max", "Lloyd", "Yaroslav", "Lemon", "Rustam", "Daniil", "Mikhail", "Sergey", "Klimenko", "Anton", "Mars", "Yulian", "Oleg", "Rostik"];
+
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `Результат: <br> ${countMatches(userInput, arr)}`; // Отобразить результат на экране пользователя
+    }
+</script>
 </body>
 </html>
