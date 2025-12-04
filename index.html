@@ -10,22 +10,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>калькулятор шоу</title>
     <style>
-     /*   :root{
-            --bg:#f0f8f0;
-            --primary:#388e3c;
-            --accent:#9575cd;
-            --text:#4a148c;
-            --light:#fff;
-            --copy-color: #4caf50;
-        } */
-       :root {
-    --bg: #e0f7fa; /* светло-голубой фон */
-    --primary: #00796b; /* темно-синий основной цвет */
-    --accent: #ff9800; /* оранжевый акцентный цвет */
-    --text: #37474f; /* темный текст */
-    --light: #fff; /* светлый цвет */
-    --copy-color: #00796b; /* темно-синий для кнопки копирования */
-} *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+        :root {
+            --bg: #e0f7fa; /* светло-голубой фон */
+            --primary: #00796b; /* темно-синий основной цвет */
+            --accent: #ff9800; /* оранжевый акцентный цвет */
+            --text: #37474f; /* темный текст */
+            --light: #fff; /* светлый цвет */
+            --copy-color: #00796b; /* темно-синий для кнопки копирования */
+        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
         html,body{height:100%}
         body{background:var(--bg);color:var(--text);display:flex;flex-direction:column}
 
@@ -158,7 +151,6 @@ let startX;
 document.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
 });
-
 document.addEventListener('touchend', (e) => {
     const endX = e.changedTouches[0].clientX;
     const deltaX = startX - endX;
@@ -207,6 +199,7 @@ function generateCode() {
     schedule = { [date]: shows }; // Обновляем глобальную переменную schedule
 
     displaySchedule(); // Обновляем первую вкладку с расписанием
+    switchTab(0); // Возвращаемся на первую вкладку
 }
 
 /* ===== 4.  Отображение полного расписания и поиск танцора ===== */
@@ -393,5 +386,3 @@ window.onload = () => {
 </script>
 </body>
 </html>
-
-
